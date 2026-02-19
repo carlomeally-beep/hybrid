@@ -211,7 +211,15 @@ def get_market_data(window_start: datetime):
                 for t in tokens:
                     outcome = t.get('outcome', '').lower()
                     token_id = t['token_id']
-                    price = float(t.get('price', 0.5))
+                    
+                    # Use clob_client.get_price for REAL book price (not stale API price)
+                    try:
+                        if client_ready:
+                            price = float(clob_client.get_price(token_id, side="BUY"))
+                        else:
+                            price = float(t.get('price', 0.5))
+                    except:
+                        price = float(t.get('price', 0.5))
                     
                     if 'up' in outcome:
                         result['up_token'] = token_id
