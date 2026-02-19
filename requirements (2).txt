@@ -1,0 +1,6 @@
+py-clob-client
+requests
+aiohttp
+websockets
+flask
+flask-cors
