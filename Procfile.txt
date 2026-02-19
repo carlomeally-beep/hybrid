@@ -1,1 +1,1 @@
-worker: hybrid.py
+web: python hybrid.py
